@@ -1,20 +1,15 @@
 # scs README
 
-This is the README for your extension "scs". After writing up a brief description, we recommend including the following sections.
+Schedule Script Syntax Highlighting. Its for Schedule Personalizer config files, dont worry about it.
 
+I am lazy so yeah.
 ## Features
 
-Describe specific features of your extension including screenshots of your extension in action. Image paths are relative to this README file.
-
-For example if there is an image subfolder under your extension project workspace:
-
-\!\[feature X\]\(images/feature-x.png\)
-
-> Tip: Many popular extensions utilize animations. This is an excellent way to show off your extension! We recommend short, focused animations that are easy to follow.
+Syntax highlighting for Schedule Personalizer config files. Its doesnt do much other than that at the moment.
 
 ## Requirements
 
-If you have any requirements or dependencies, add a section describing those and how to install and configure them.
+It requires that you are using schedule personalizer or the schedule script language.
 
 ## Extension Settings
 
@@ -29,23 +24,15 @@ This extension contributes the following settings:
 
 ## Known Issues
 
-Calling out known issues can help limit users opening duplicate issues against your extension.
+* Syntax highlighting is not perfect, but it works. Its good enough to make writing it bareable at the moment.
 
 ## Release Notes
 
-Users appreciate release notes as you update your extension.
+* Initial Commit, nothing special.
 
 ### 1.0.0
 
-Initial release of ...
-
-### 1.0.1
-
-Fixed issue #.
-
-### 1.1.0
-
-Added features X, Y, and Z.
+Initial release of schedule script syntax highlighting
 
 ---
 

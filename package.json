@@ -1,7 +1,7 @@
 {
-  "name": "scs",
-  "displayName": "scs",
-  "description": "scs",
+  "name": "scs-syntax-highlighting",
+  "displayName": "schedule script",
+  "description": "schedule script syntax highlighting",
   "version": "0.0.1",
   "engines": {
     "vscode": "^1.72.0"

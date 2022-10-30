@@ -1,0 +1,25 @@
+{
+  "name": "scs",
+  "displayName": "scs",
+  "description": "scs",
+  "version": "0.0.1",
+  "engines": {
+    "vscode": "^1.72.0"
+  },
+  "categories": [
+    "Programming Languages"
+  ],
+  "contributes": {
+    "languages": [{
+      "id": "scs",
+      "aliases": ["schedule script", "scs"],
+      "extensions": [".scs"],
+      "configuration": "./language-configuration.json"
+    }],
+    "grammars": [{
+      "language": "scs",
+      "scopeName": "source.scs",
+      "path": "./syntaxes/scs.tmLanguage.json"
+    }]
+  }
+}

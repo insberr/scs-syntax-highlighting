@@ -71,6 +71,11 @@
                 {
                     "name": "comment.line.double-slash.scs",
                     "match": "//.*$"
+                },
+                {
+                    "name": "comment.block.scs",
+                    "begin": "/\\*",
+                    "end": "\\*/"
                 }
             ]
         },

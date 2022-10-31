@@ -2,9 +2,17 @@
   "name": "scs-syntax-highlighting",
   "displayName": "schedule script",
   "description": "schedule script syntax highlighting",
+  "author": {
+    "name": "insberr",
+    "email": "main@insberr.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/insberr/scs-syntax-highlighting.git"
+  },
   "version": "0.0.1",
   "engines": {
-    "vscode": "^1.72.0"
+    "vscode": "^1.65.0"
   },
   "categories": [
     "Programming Languages"

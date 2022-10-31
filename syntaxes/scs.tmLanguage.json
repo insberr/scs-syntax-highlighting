@@ -73,10 +73,10 @@
                     "match": "//.*$"
                 },
                 {
-                    "name": "comment.block.scs",
-                    "begin": "/\\*",
-                    "end": "\\*/"
-                }
+					"name": "comment.block.scs",
+					"begin": "/\\*",
+					"end": "\\*/"
+				}
             ]
         },
         "operators": {

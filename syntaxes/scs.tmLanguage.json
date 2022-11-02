@@ -56,9 +56,9 @@
             ]
         },
 		"strings": {
-			"name": "string.quoted.single.scs",
-			"begin": "'",
-			"end": "'",
+			"name": "string.quoted.double.scs",
+			"begin": "\"",
+			"end": "\"",
 			"patterns": [
 				{
 					"name": "constant.character.escape.scs",

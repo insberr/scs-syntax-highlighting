@@ -1,13 +1,13 @@
 {
-	"$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
-	"name": "schedule script",
-	"patterns": [
-		{
-			"include": "#keywords"
-		},
-		{
-			"include": "#strings"
-		},
+    "$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+    "name": "schedule script",
+    "patterns": [
+        {
+            "include": "#keywords"
+        },
+        {
+            "include": "#strings"
+        },
         {
             "include": "#comments"
         },
@@ -29,20 +29,20 @@
         {
             "include": "#keywords"
         }
-	],
-	"repository": {
-		"keywords": {
-			"patterns": [
+    ],
+    "repository": {
+        "keywords": {
+            "patterns": [
                 {
                     "name": "keyword.control.scs",
                     "match": "\\b(\\d{1,2}:\\d{2})\\b"
                 },
-            {
-                "name": "keyword.other.scs",
-                "match": "\\b(overide|schedule|event|class|lunch|to|remove|insert|force|teacher|from|assing|user)\\b"
-
-            }]
-		},
+                {
+                    "name": "keyword.other.scs",
+                    "match": "\\b(overide|schedule|event|class|lunch|to|remove|insert|force|teacher|from|assing|user)\\b"
+                }
+            ]
+        },
         "numbers": {
             "patterns": [
                 {
@@ -55,17 +55,43 @@
                 }
             ]
         },
-		"strings": {
-			"name": "string.quoted.double.scs",
-			"begin": "\"",
-			"end": "\"",
-			"patterns": [
-				{
-					"name": "constant.character.escape.scs",
-					"match": "\\\\."
-				}
-			]
-		},
+        "strings": {
+            "patterns": [
+                {
+                    "name": "string.quoted.double.scs",
+                    "begin": "\"",
+                    "end": "\"",
+                    "patterns": [
+                        {
+                            "name": "constant.character.escape.scs",
+                            "match": "\\\\."
+                        }
+                    ]
+                },
+                {
+                    "name": "string.quoted.single.scs",
+                    "begin": "'",
+                    "end": "'",
+                    "patterns": [
+                        {
+                            "name": "constant.character.escape.scs",
+                            "match": "\\\\."
+                        }
+                    ]
+                },
+                {
+                    "name": "string.quoted.other.scs",
+                    "begin": "`",
+                    "end": "`",
+                    "patterns": [
+                        {
+                            "name": "constant.character.escape.scs",
+                            "match": "\\\\."
+                        }
+                    ]
+                }
+            ]
+        },
         "comments": {
             "patterns": [
                 {
@@ -73,10 +99,10 @@
                     "match": "//.*$"
                 },
                 {
-					"name": "comment.block.scs",
-					"begin": "/\\*",
-					"end": "\\*/"
-				}
+                    "name": "comment.block.scs",
+                    "begin": "/\\*",
+                    "end": "\\*/"
+                }
             ]
         },
         "operators": {
@@ -86,7 +112,15 @@
                     "match": "\\b(\\+|\\-|\\*|\\/|\\=|\\<|\\>|\\&|\\|)\\b"
                 }
             ]
+        },
+        "functions": {
+            "patterns": [
+                {
+                    "name": "support.function.scs",
+                    "match": "\\b(\\w+)\\("
+                }
+            ]
         }
-	},
-	"scopeName": "source.scs"
+    },
+    "scopeName": "source.scs"
 }

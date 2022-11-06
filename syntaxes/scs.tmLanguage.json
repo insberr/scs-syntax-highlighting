@@ -35,11 +35,15 @@
             "patterns": [
                 {
                     "name": "keyword.control.scs",
-                    "match": "\\b(\\d{1,2}:\\d{2})\\b"
+                    "match": "\\b(import|inherit|call|function|with|to|set|config|description|remove|insert|force|from|user|lunches|terms|only|replace|lunchConfig|passing|with)\\b"
+                },
+                {
+                    "name": "support.class.scs",
+                    "match": "\\b(class|lunch|schedule|event|overide|teacher|date|message|info|term|day|events)\\b"
                 },
                 {
                     "name": "keyword.other.scs",
-                    "match": "\\b(overide|schedule|event|class|lunch|to|remove|insert|force|teacher|from|assing|user)\\b"
+                    "match": "\\[[a-zA-Z0-9_ ]+\\]"
                 }
             ]
         },
@@ -51,7 +55,7 @@
                 },
                 {
                     "name": "constant.other.scs",
-                    "match": "\\b(\\d+\\:\\d+)\\b"
+                    "match": "\\b((\\d+\\:\\d+)|(\\d{1,2}:\\d{2}))\\b"
                 }
             ]
         },
@@ -117,7 +121,7 @@
             "patterns": [
                 {
                     "name": "support.function.scs",
-                    "match": "\\b(\\w+)\\("
+                    "match": "call \\b([a-zA-Z0-9_]+)\\b"
                 }
             ]
         }

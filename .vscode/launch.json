@@ -10,7 +10,7 @@
             "type": "extensionHost",
             "request": "launch",
             "args": [
-                "--extensionDevelopmentPath=/Users/insberr/code/schedule-script/"
+                "--extensionDevelopmentPath=${workspaceFolder}"
             ]
         }
     ]

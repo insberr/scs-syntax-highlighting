@@ -9,3 +9,4 @@ client/server
 !.yarn/releases
 !.yarn/sdks
 !.yarn/versions
+.parcel-cache/

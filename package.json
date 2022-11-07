@@ -1,72 +1,96 @@
 {
 	"name": "scs-syntax-highlighting",
 	"description": "Schedule? Scripted.",
-	"author": "insberr & Wackery",
+	"author": "insberr&Wackery",
 	"license": "MIT",
-	"version": "0.0.5",
+	"version": "0.0.4",
 	"repository": {
 		"type": "git",
 		"url": "https://github.com/insberr/scs-syntax-highlighting.git"
 	},
-	"publisher": "insberr & Wackery",
+	"publisher": "insberr & wackery",
 	"categories": [],
 	"keywords": [
 		"multi-root ready"
 	],
 	"engines": {
-		"vscode": "^1.73.0"
+		"vscode": "^1.63.0"
 	},
 	"activationEvents": [
 		"onLanguage:scs"
 	],
 	"main": "./out/client/extension",
-	"contributes": {
-		"configuration": {
-			"type": "object",
-			"title": "Example configuration",
-			"properties": {
-				"languageServerExample.maxNumberOfProblems": {
-					"scope": "resource",
-					"type": "number",
-					"default": 100,
-					"description": "Controls the maximum number of problems produced by the server."
-				},
-				"languageServerExample.trace.server": {
-					"scope": "window",
-					"type": "string",
-					"enum": [
-						"off",
-						"messages",
-						"verbose"
-					],
-					"default": "off",
-					"description": "Traces the communication between VS Code and the language server."
-				}
-			}
-		}
-	},
 	"scripts": {
 		"vscode:prepublish": "yarn compile",
-		"compile": "swc src -d out -s true",
-		"watch": "yarn compile -w",
-		"lint": "eslint ./src --ext .ts,.tsx"
+		"compile": "parcel build",
+		"watch": "parcel watch",
+		"lint": "eslint ./src --ext .ts,.tsx",
+		"pub": "vsce package --no-dependencies"
 	},
 	"devDependencies": {
 		"@swc/cli": "^0.1.57",
 		"@swc/core": "^1.3.14",
 		"@types/mocha": "^9.1.0",
 		"@types/node": "^16.11.7",
-		"@types/vscode": "^1.73.0",
+		"@types/vscode": "^1.63.0",
 		"@typescript-eslint/eslint-plugin": "^5.42.0",
 		"@typescript-eslint/parser": "^5.42.0",
 		"chokidar": "^3.5.3",
 		"eslint": "^8.26.0",
 		"mocha": "^9.2.1",
-		"typescript": "^4.8.4"
+		"parcel": "^2.7.0",
+		"typescript": "^4.8.4",
+		"vsce": "^2.14.0"
 	},
 	"packageManager": "yarn@3.2.4",
 	"dependencies": {
 		"vscode-languageclient": "^8.0.2",
-		"vscode-languageserver": "^8.0.2"
+		"vscode-languageserver": "^8.0.2",
+		"vscode-languageserver-textdocument": "^1.0.7"
+	},
+	"contributes": {
+		"languages": [
+			{
+				"id": "scs",
+				"aliases": [
+					"schedule script",
+					"scs"
+				],
+				"extensions": [
+					".scs"
+				],
+				"configuration": "./language-configuration.json"
+			}
+		],
+		"grammars": [
+			{
+				"language": "scs",
+				"scopeName": "source.scs",
+				"path": "./syntaxes/scs.tmLanguage.json"
+			}
+		]
+	},
+	"targets": {
+		"main": false,
+		"extension": {
+			"source": "src/client/extension.ts",
+			"includeNodeModules": {
+				"vscode-languageclient": true,
+				"vscode": false
+			},
+			"distDir": "out/client",
+			"context": "node",
+			"isLibrary": true
+		},
+		"server": {
+			"source": "src/server/server.ts",
+			"includeNodeModules": {
+				"vscode-languageserver": true,
+				"vscode-languageserver-textdocument": true
+			},
+			"distDir": "out/server",
+			"context": "node",
+			"isLibrary": true
+		}
 	}
 }

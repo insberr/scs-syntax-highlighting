@@ -5,7 +5,7 @@
 	"icon": "scs-icon.png",
 	"author": "insberr&Wackery",
 	"license": "MIT",
-	"version": "0.0.4",
+	"version": "0.0.5",
 	"repository": {
 		"type": "git",
 		"url": "https://github.com/insberr/scs-syntax-highlighting.git"

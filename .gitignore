@@ -1,2 +1,12 @@
+out
 node_modules
-#*.vsix
+client/server
+.vscode-test
+.pnp.*
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/sdks
+!.yarn/versions
+.parcel-cache/

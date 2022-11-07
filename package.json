@@ -2,7 +2,6 @@
 	"name": "scs-syntax-highlighting",
 	"displayName": "Schedule Script Language Features",
 	"description": "Schedule Script (.scs) language features. Schedule? Scripted.",
-	"icon": "scs-icon.png",
 	"author": "insberr&Wackery",
 	"license": "MIT",
 	"version": "0.0.5",
@@ -11,7 +10,9 @@
 		"url": "https://github.com/insberr/scs-syntax-highlighting.git"
 	},
 	"publisher": "insberr",
-	"categories": ["Programming Languages"],
+	"categories": [
+		"Programming Languages"
+	],
 	"keywords": [
 		"multi-root ready"
 	],

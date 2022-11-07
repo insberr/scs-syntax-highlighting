@@ -1,5 +1,7 @@
 # scs README
 
+copying an example moment
+
 Schedule Script Syntax Highlighting. Its for Schedule Personalizer config files, dont worry about it.
 
 I am lazy so yeah.

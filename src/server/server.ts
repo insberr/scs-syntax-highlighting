@@ -16,7 +16,7 @@ import {
 	TextDocumentSyncKind,
 	InitializeResult
 } from 'vscode-languageserver/node';
-
+import { SCS } from 'schedule-script';
 import {
 	TextDocument
 } from 'vscode-languageserver-textdocument';
@@ -140,6 +140,22 @@ async function validateTextDocument(textDocument: TextDocument): Promise<void> {
 
 	// The validator creates diagnostics for all uppercase words length 2 and more
 	const text = textDocument.getText();
+	let diagnostics: Diagnostic[] = [];
+	try {
+		const n = new SCS(text);
+	} catch (e) {
+		diagnostics.push({
+			severity: DiagnosticSeverity.Error,
+			range: {
+				start: textDocument.positionAt(e.location.start.offset),
+				end: textDocument.positionAt(e.location.end.offset),
+			},
+			"message": e.toString()
+		})
+	}
+
+
+	connection.sendDiagnostics({ uri: textDocument.uri, diagnostics });
 	
 }
 

@@ -83,7 +83,8 @@
 			},
 			"distDir": "out/client",
 			"context": "node",
-			"isLibrary": true
+			"isLibrary": true,
+			"optimize": true
 		},
 		"server": {
 			"source": "src/server/server.ts",
@@ -93,7 +94,8 @@
 			},
 			"distDir": "out/server",
 			"context": "node",
-			"isLibrary": true
+			"isLibrary": true,
+			"optimize": true
 		}
 	}
 }

@@ -16,7 +16,7 @@ import {
 	TextDocumentSyncKind,
 	InitializeResult
 } from 'vscode-languageserver/node';
-import { SCS } from 'schedule-script';
+import { Block, SCS, Statement } from 'schedule-script';
 import {
 	TextDocument
 } from 'vscode-languageserver-textdocument';
@@ -141,8 +141,9 @@ async function validateTextDocument(textDocument: TextDocument): Promise<void> {
 	// The validator creates diagnostics for all uppercase words length 2 and more
 	const text = textDocument.getText();
 	let diagnostics: Diagnostic[] = [];
+	let n: SCS;
 	try {
-		const n = new SCS(text);
+		n = new SCS(text);
 	} catch (e) {
 		diagnostics.push({
 			severity: DiagnosticSeverity.Error,
@@ -152,9 +153,25 @@ async function validateTextDocument(textDocument: TextDocument): Promise<void> {
 			},
 			"message": e.toString()
 		})
+		connection.sendDiagnostics({ uri: textDocument.uri, diagnostics })
+		return;
 	}
-
-
+	function recurseInto(b: Block | Statement, cb: (s: Statement) => void) {
+		if (Array.isArray(b)) {
+			b.forEach((e) => recurseInto(e, cb))
+		}
+		else {
+			cb(b);
+			b.args.forEach((c) => {
+				if (c.type == "block") {
+					recurseInto(c.data,cb)
+				}
+			})
+		}
+	}
+	recurseInto(n.parsed, (e) => {
+		connection.console.log(e.statement+":"+e.location.start.offset+":"+e.location.start.offset+e.statement.length)
+	})
 	connection.sendDiagnostics({ uri: textDocument.uri, diagnostics });
 	
 }

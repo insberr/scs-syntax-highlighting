@@ -26,10 +26,11 @@
     "scripts": {
         "vscode:prepublish": "yarn compile",
         "compile": "parcel build",
+        "build": "yarn compile",
         "watch": "parcel watch",
         "lint": "eslint ./src --ext .ts,.tsx",
         "pub": "vsce package --no-dependencies",
-		"actuallypub": "vsce publish --no-dependencies"
+        "actuallypub": "vsce publish --no-dependencies"
     },
     "devDependencies": {
         "@swc/cli": "^0.1.57",
@@ -50,7 +51,7 @@
     "packageManager": "yarn@3.2.4",
     "dependencies": {
         "diff": "^5.1.0",
-        "schedule-script": "github:insberr/schedule-script#da939de87d26a221574a14057f353b2b9e80e6bc",
+        "schedule-script": "github:insberr/schedule-script#0c2dd5541875c8181ac4269907a7759b10af5641",
         "vscode-languageclient": "^8.0.2",
         "vscode-languageserver": "^8.0.2",
         "vscode-languageserver-textdocument": "^1.0.7"

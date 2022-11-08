@@ -1131,6 +1131,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/diff@npm:^5.0.2":
+  version: 5.0.2
+  resolution: "@types/diff@npm:5.0.2"
+  checksum: 8fbc419b5aca33f494026bf5f70e026f76367689677ef114f9c078ac738d7dbe96e6dda3fd8290e4a7c35281e2b60b034e3d7e3c968b850cf06a21279e7ddcbe
+  languageName: node
+  linkType: hard
+
 "@types/json-schema@npm:^7.0.9":
   version: 7.0.11
   resolution: "@types/json-schema@npm:7.0.11"
@@ -2011,6 +2018,13 @@ __metadata:
   version: 5.0.0
   resolution: "diff@npm:5.0.0"
   checksum: f19fe29284b633afdb2725c2a8bb7d25761ea54d321d8e67987ac851c5294be4afeab532bd84531e02583a3fe7f4014aa314a3eda84f5590e7a9e6b371ef3b46
+  languageName: node
+  linkType: hard
+
+"diff@npm:^5.1.0":
+  version: 5.1.0
+  resolution: "diff@npm:5.1.0"
+  checksum: c7bf0df7c9bfbe1cf8a678fd1b2137c4fb11be117a67bc18a0e03ae75105e8533dbfb1cda6b46beb3586ef5aed22143ef9d70713977d5fb1f9114e21455fba90
   languageName: node
   linkType: hard
 
@@ -4219,7 +4233,7 @@ __metadata:
   bin:
     schedule-script: ./cli/cli.js
     scs: ./cli/cli.js
-  checksum: 064f4c9c174871067c5892e8d6477d832cfc13d2cddc7fbee1d222d319d260ff7cbbeedbf9271d6e922b7dced50d564afd5b4371c76c2797f82a6969cba232c0
+  checksum: b582a364a7545cb3260680b3f68fcf831c952fae6820333c170e5925651322058692ea3de06323033c21dfd9dcff4834177a0c5a59d186da5dd0a6aa0868b9db
   languageName: node
   linkType: hard
 
@@ -4229,12 +4243,14 @@ __metadata:
   dependencies:
     "@swc/cli": ^0.1.57
     "@swc/core": ^1.3.14
+    "@types/diff": ^5.0.2
     "@types/mocha": ^9.1.0
     "@types/node": ^16.11.7
     "@types/vscode": ^1.63.0
     "@typescript-eslint/eslint-plugin": ^5.42.0
     "@typescript-eslint/parser": ^5.42.0
     chokidar: ^3.5.3
+    diff: ^5.1.0
     eslint: ^8.26.0
     mocha: ^9.2.1
     parcel: ^2.7.0

@@ -4,7 +4,7 @@
     "description": "Schedule Script (.scs) language features. Schedule? Scripted.",
     "author": "insberr&Wackery",
     "license": "MIT",
-    "version": "0.0.5",
+    "version": "0.0.6",
     "repository": {
         "type": "git",
         "url": "https://github.com/insberr/scs-syntax-highlighting.git"
@@ -28,7 +28,8 @@
         "compile": "parcel build",
         "watch": "parcel watch",
         "lint": "eslint ./src --ext .ts,.tsx",
-        "pub": "vsce package --no-dependencies"
+        "pub": "vsce package --no-dependencies",
+		"actuallypub": "vsce publish --no-dependencies"
     },
     "devDependencies": {
         "@swc/cli": "^0.1.57",

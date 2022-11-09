@@ -60,7 +60,46 @@ connection.onInitialize((params: InitializeParams) => {
                 resolveProvider: true,
             },
             documentFormattingProvider: true,
-            hoverProvider: true,
+			hoverProvider: true,
+			/*
+			semanticTokensProvider: {
+				documentSelector: [{ scheme: 'file', language: 'scs' }],
+				legend: {
+					tokenTypes: [
+						"comment",
+						"keyword",
+						"string",
+						"number",
+						"regexp",
+						"operator",
+						"namespace",
+						"type",
+						"struct",
+						"class",
+						"interface",
+						"enum",
+						"typeParameter",
+						"function",
+						"member",
+						"macro",
+						"variable",
+						"parameter",
+						"property",
+					],
+					tokenModifiers: [
+						"declaration",
+						"documentation",
+						"static",
+						"abstract",
+						"deprecated",
+						"readonly",
+					],
+				},
+				full: {
+					delta: false,
+				},
+			},
+			*/
         },
     };
     if (hasWorkspaceFolderCapability) {
@@ -182,7 +221,8 @@ async function validateTextDocument(textDocument: TextDocument): Promise<void> {
     }
 
     recurseInto(n.parsed, (e, parent) => {
-        if (e.statement == "comment" || e.statement == "multicomment") {
+		if (e.statement == "comment" || e.statement == "multicomment") {
+			
             return;
         }
         /*connection.console.log(

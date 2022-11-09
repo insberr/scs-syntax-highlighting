@@ -4,6 +4,7 @@
  * ------------------------------------------------------------------------------------------ */
 
 import * as path from 'path';
+import { SCS } from 'schedule-script';
 import { workspace, ExtensionContext, SemanticTokensLegend, TextDocument, CancellationToken, SemanticTokens, SemanticTokensBuilder, languages } from 'vscode';
 
 import {
@@ -13,21 +14,22 @@ import {
 	TransportKind
 } from 'vscode-languageclient/node';
 
+let client: LanguageClient;
 
 const tokenTypes = new Map<string, number>();
 const tokenModifiers = new Map<string, number>();
 
 const legend = (function() {
 	const tokenTypesLegend = [
-		'comment', 'string', 'keyword', 'number', 'regexp', 'operator', 'namespace',
-		'type', 'struct', 'class', 'interface', 'enum', 'typeParameter', 'function',
-		'method', 'decorator', 'macro', 'variable', 'parameter', 'property', 'label'
+		'comment', 'string', 'keyword', 'number', 'operator', 'namespace',
+		'type', 'struct', 'class', 'interface', 'typeParameter', 'function',
+		'method', 'decorator', 'variable', 'parameter', 'property', 'label'
 	];
 	tokenTypesLegend.forEach((tokenType, index) => tokenTypes.set(tokenType, index));
 
 	const tokenModifiersLegend = [
 		'declaration', 'documentation', 'readonly', 'static', 'abstract', 'deprecated',
-		'modification', 'async'
+		'modification',
 	];
 	tokenModifiersLegend.forEach((tokenModifier, index) => tokenModifiers.set(tokenModifier, index));
 
@@ -43,11 +45,19 @@ interface IParsedToken {
 }
 
 class DocumentSemanticTokensProvider implements DocumentSemanticTokensProvider {
-	async provideDocumentSemanticTokens(document: TextDocument, token: CancellationToken): Promise<SemanticTokens> {
-		const allTokens = this._parseText(document.getText());
+	async provideDocumentSemanticTokens(document: TextDocument, tok: CancellationToken): Promise<SemanticTokens> {
+		let scsTokens = [];
+		try {
+			scsTokens = new SCS(document.getText()).parsed;
+		} catch (err) {
+			// ! take care of error here
+		}
+
+		// const allTokens = this._parseText(document.getText());
 		const builder = new SemanticTokensBuilder();
-		allTokens.forEach((token) => {
-			builder.push(token.line, token.startCharacter, token.length, this._encodeTokenType(token.tokenType), this._encodeTokenModifiers(token.tokenModifiers));
+		scsTokens.forEach((token) => {
+			// hfgl
+			builder.push(token.location.start.line, token.location.start.offset, token.location.end.offset - token.location.start.offset, this._encodeTokenType(token.statement), this._encodeTokenModifiers(token.args));
 		});
 		return builder.build();
 	}
@@ -56,22 +66,13 @@ class DocumentSemanticTokensProvider implements DocumentSemanticTokensProvider {
 		if (tokenTypes.has(tokenType)) {
 			return tokenTypes.get(tokenType)!;
 		} else if (tokenType === 'notInLegend') {
-			return tokenTypes.size + 2;
+			return tokenTypes.get('string')!;
 		}
-		return 0;
+		return tokenTypes.get('string')!;
 	}
 
 	private _encodeTokenModifiers(strTokenModifiers: string[]): number {
-		let result = 0;
-		for (let i = 0; i < strTokenModifiers.length; i++) {
-			const tokenModifier = strTokenModifiers[i];
-			if (tokenModifiers.has(tokenModifier)) {
-				result = result | (1 << tokenModifiers.get(tokenModifier)!);
-			} else if (tokenModifier === 'notInLegend') {
-				result = result | (1 << tokenModifiers.size + 2);
-			}
-		}
-		return result;
+		return tokenModifiers.get('declaration')!
 	}
 
 	private _parseText(text: string): IParsedToken[] {
@@ -115,7 +116,7 @@ class DocumentSemanticTokensProvider implements DocumentSemanticTokensProvider {
 // end pian
 
 
-let client: LanguageClient;
+
 
 export function activate(context: ExtensionContext) {
 	// The server is implemented in node

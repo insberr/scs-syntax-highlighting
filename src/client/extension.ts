@@ -56,60 +56,13 @@ class DocumentSemanticTokensProvider implements DocumentSemanticTokensProvider {
 		// const allTokens = this._parseText(document.getText());
 		const builder = new SemanticTokensBuilder();
 		scsTokens.forEach((token) => {
+			if (token.statement === 'comment') {
+				console.dir(token, { depth: 10 })
+				builder.push(token.location.start.offset, token.location.start.offset, token.location.end.offset-token.location.start.offset, tokenTypes.get('comment'), tokenModifiers.get('documentation')!);
+			}
 			// hfgl
-			builder.push(token.location.start.line, token.location.start.offset, token.location.end.offset - token.location.start.offset, this._encodeTokenType(token.statement), this._encodeTokenModifiers(token.args));
 		});
 		return builder.build();
-	}
-
-	private _encodeTokenType(tokenType: string): number {
-		if (tokenTypes.has(tokenType)) {
-			return tokenTypes.get(tokenType)!;
-		} else if (tokenType === 'notInLegend') {
-			return tokenTypes.get('string')!;
-		}
-		return tokenTypes.get('string')!;
-	}
-
-	private _encodeTokenModifiers(strTokenModifiers: string[]): number {
-		return tokenModifiers.get('declaration')!
-	}
-
-	private _parseText(text: string): IParsedToken[] {
-		const r: IParsedToken[] = [];
-		const lines = text.split(/\r\n|\r|\n/);
-		for (let i = 0; i < lines.length; i++) {
-			const line = lines[i];
-			let currentOffset = 0;
-			do {
-				const openOffset = line.indexOf('[', currentOffset);
-				if (openOffset === -1) {
-					break;
-				}
-				const closeOffset = line.indexOf(']', openOffset);
-				if (closeOffset === -1) {
-					break;
-				}
-				const tokenData = this._parseTextToken(line.substring(openOffset + 1, closeOffset));
-				r.push({
-					line: i,
-					startCharacter: openOffset + 1,
-					length: closeOffset - openOffset - 1,
-					tokenType: tokenData.tokenType,
-					tokenModifiers: tokenData.tokenModifiers
-				});
-				currentOffset = closeOffset;
-			} while (true);
-		}
-		return r;
-	}
-
-	private _parseTextToken(text: string): { tokenType: string; tokenModifiers: string[]; } {
-		const parts = text.split('.');
-		return {
-			tokenType: parts[0],
-			tokenModifiers: parts.slice(1)
-		};
 	}
 }
 

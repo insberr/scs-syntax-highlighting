@@ -51,7 +51,7 @@
     "packageManager": "yarn@3.2.4",
     "dependencies": {
         "diff": "^5.1.0",
-        "schedule-script": "github:insberr/schedule-script#0c2dd5541875c8181ac4269907a7759b10af5641",
+        "schedule-script": "github:insberr/schedule-script#d9dfa07f9a85cdd33e0efcd819ca9f7eb4656dee",
         "vscode-languageclient": "^8.0.2",
         "vscode-languageserver": "^8.0.2",
         "vscode-languageserver-textdocument": "^1.0.7"

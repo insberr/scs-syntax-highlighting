@@ -18,9 +18,8 @@ import {
     TextEdit,
     Hover,
 } from "vscode-languageserver/node";
-import { Block, SCS, Statement, _statements } from "schedule-script";
+import { Block, LintLevel, SCS, Statement, _statements } from "schedule-script";
 import { TextDocument } from "vscode-languageserver-textdocument";
-import { checkers } from "./statementCheckers";
 import { Hovers } from "./hovers";
 import { diffChars } from "diff";
 
@@ -219,61 +218,20 @@ async function validateTextDocument(textDocument: TextDocument): Promise<void> {
         connection.sendDiagnostics({ uri: textDocument.uri, diagnostics });
         return;
     }
-
-    recurseInto(n.parsed, (e, parent) => {
-		if (e.statement == "comment" || e.statement == "multicomment") {
-			
-            return;
-        }
-        /*connection.console.log(
-      e.statement +
-        ":" +
-        e.location.start.offset +
-        ":" +
-        e.location.start.offset +
-        e.statement.length
-    );*/
-        if (
-            !_statements.includes(e.statement) &&
-            !["function", "call"].includes(e.statement)
-        ) {
-            diagnostics.push({
-                severity: DiagnosticSeverity.Warning,
-                range: {
-                    start: textDocument.positionAt(e.location.start.offset),
-                    end: textDocument.positionAt(
-                        e.location.start.offset + e.statement.length
-                    ),
-                },
-                message: `Unknown statement: ${e.statement}`,
-            });
-        }
-        const checker = checkers.get(e.statement);
-        if (!checker) {
-            diagnostics.push({
-                severity: DiagnosticSeverity.Warning,
-                range: {
-                    start: textDocument.positionAt(e.location.start.offset),
-                    end: textDocument.positionAt(
-                        e.location.start.offset + e.statement.length
-                    ),
-                },
-                message: "No checker for statement: " + e.statement,
-            });
-        } else {
-            const err = checker(e, parent);
-            if (err) {
-                diagnostics.push({
-                    severity: DiagnosticSeverity.Error,
-                    range: {
-                        start: textDocument.positionAt(e.location.start.offset),
-                        end: textDocument.positionAt(e.location.end.offset),
-                    },
-                    message: err,
-                });
-            }
-        }
-    });
+    const mapping = new Map<LintLevel, DiagnosticSeverity>();
+    mapping.set(LintLevel.info, DiagnosticSeverity.Information);
+    mapping.set(LintLevel.warn, DiagnosticSeverity.Warning);
+    mapping.set(LintLevel.error, DiagnosticSeverity.Error);
+    n.lint().forEach((e) => {
+        diagnostics.push({
+            severity: mapping.get(e.level) || DiagnosticSeverity.Error,
+            range: {
+                start: textDocument.positionAt(e.location.start.offset),
+                end: textDocument.positionAt(e.location.end.offset),
+            },
+            message: e.toString(),
+        });
+    })
     connection.sendDiagnostics({ uri: textDocument.uri, diagnostics });
 }
 

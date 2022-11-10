@@ -56,9 +56,25 @@ class DocumentSemanticTokensProvider implements DocumentSemanticTokensProvider {
 		// const allTokens = this._parseText(document.getText());
 		const builder = new SemanticTokensBuilder();
 		scsTokens.forEach((token) => {
+			// use regexes for basics
+			// and then this to do all the finer details
+			// for things that would be a pain to take care of in regex form
+			// comments are just a test kinda thing
 			if (token.statement === 'comment') {
-				console.dir(token, { depth: 10 })
-				builder.push(token.location.start.offset, token.location.start.offset, token.location.end.offset-token.location.start.offset, tokenTypes.get('comment'), tokenModifiers.get('documentation')!);
+				// console.dir(token, { depth: 10 })
+				const pos = document.positionAt(token.location.start.offset)
+				// console.dir(pos, { depth: 30 });
+				builder.push(pos.line, pos.character, token.location.end.offset-token.location.start.offset, tokenTypes.get('comment'), tokenModifiers.get('documentation')!);
+			} else if (token.statement === 'multicomment') {
+				// doesnt work because pain
+				const startPos = document.positionAt(token.location.start.offset);
+				const endPos = document.positionAt(token.location.end.offset);
+				const contents = ['/*', ...token.comment.split('\n'), '*/'];
+				// iterate over every line
+				const lines = (endPos.line - startPos.line)+2;
+				for (let i = 0; lines < i; i++) {
+					builder.push(startPos.line + i, startPos.character, contents[i].length+1, tokenTypes.get('comment')!, tokenModifiers.get('documentation')!)
+				}
 			}
 			// hfgl
 		});

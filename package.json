@@ -1,7 +1,7 @@
 {
     "name": "scs-syntax-highlighting",
     "displayName": "Schedule Script Language Features",
-	"icon": "icon.png",
+    "icon": "icon.png",
     "description": "Schedule Script (.scs) language features. Schedule? Scripted.",
     "author": "insberr&Wackery",
     "license": "MIT",

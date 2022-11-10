@@ -51,7 +51,7 @@
     "packageManager": "yarn@3.2.4",
     "dependencies": {
         "diff": "^5.1.0",
-        "schedule-script": "github:insberr/schedule-script#fa7190a48784d7ffa11a4513986b22df2828e757",
+        "schedule-script": "github:insberr/schedule-script#1e362756c8bbaa81ec66bf17b6f622edbd1e5d6a",
         "vscode-languageclient": "^8.0.2",
         "vscode-languageserver": "^8.0.2",
         "vscode-languageserver-textdocument": "^1.0.7"
@@ -67,12 +67,14 @@
                 "extensions": [
                     ".scs"
                 ],
+                "icon": {
+                    "dark": "icon.svg",
+                    "light": "icon.svg"
+                },
                 "configuration": "./language-configuration.json"
             }
         ],
-        "grammars": [
-
-        ]
+        "grammars": []
     },
     "targets": {
         "main": false,

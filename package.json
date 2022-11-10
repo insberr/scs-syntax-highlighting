@@ -4,7 +4,7 @@
     "description": "Schedule Script (.scs) language features. Schedule? Scripted.",
     "author": "insberr&Wackery",
     "license": "MIT",
-    "version": "0.0.6",
+    "version": "0.0.7",
     "repository": {
         "type": "git",
         "url": "https://github.com/insberr/scs-syntax-highlighting.git"

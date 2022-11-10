@@ -17,12 +17,14 @@ import {
     InitializeResult,
     TextEdit,
     Hover,
+    SemanticTokens
 } from "vscode-languageserver/node";
 import { Block, LintLevel, SCS, Statement, _statements } from "schedule-script";
 import { TextDocument } from "vscode-languageserver-textdocument";
 import { Hovers } from "./hovers";
 import { diffChars } from "diff";
-
+import { recurseInto } from '../lib';
+import { legend, provideDocumentSemanticTokens } from './tokens';
 // Create a connection for the server, using Node's IPC as a transport.
 // Also include all preview / proposed LSP features.
 const connection = createConnection(ProposedFeatures.all);
@@ -36,7 +38,9 @@ let hasDiagnosticRelatedInformationCapability = false;
 
 connection.onInitialize((params: InitializeParams) => {
     const capabilities = params.capabilities;
-
+    if (!capabilities.textDocument.semanticTokens.multilineTokenSupport) {
+      console.warn("The client does not support multiline tokens.");
+    }
     // Does the client support the `workspace/configuration` request?
     // If not, we fall back using global settings.
     hasConfigurationCapability = !!(
@@ -58,6 +62,11 @@ connection.onInitialize((params: InitializeParams) => {
             completionProvider: {
                 resolveProvider: true,
             },
+            semanticTokensProvider: {
+              legend: legend,
+              full: true,
+            },
+            
             documentFormattingProvider: true,
 			hoverProvider: true,
 			/*
@@ -111,6 +120,10 @@ connection.onInitialize((params: InitializeParams) => {
     connection.console.log("ok buddddy");
     return result;
 });
+
+connection.languages.semanticTokens.on((params) => {
+    return provideDocumentSemanticTokens(documents.get(params.textDocument.uri))
+})
 
 connection.onInitialized(() => {
     if (hasConfigurationCapability) {
@@ -179,23 +192,6 @@ documents.onDidChangeContent((change) => {
     validateTextDocument(change.document);
 });
 
-function recurseInto(
-    b: Block | Statement,
-    cb: (s: Statement, parent?: Statement) => void,
-    parent?: Statement
-) {
-    if (Array.isArray(b)) {
-        b.forEach((e) => recurseInto(e, cb, parent));
-    } else {
-        cb(b, parent);
-        b.args.forEach((c) => {
-            if (c.type == "block") {
-                recurseInto(c.data, cb, b);
-            }
-        });
-    }
-}
-
 async function validateTextDocument(textDocument: TextDocument): Promise<void> {
     // In this simple example we get the settings for every validate run.
     const settings = await getDocumentSettings(textDocument.uri);
@@ -227,9 +223,9 @@ async function validateTextDocument(textDocument: TextDocument): Promise<void> {
             severity: mapping.get(e.level) || DiagnosticSeverity.Error,
             range: {
                 start: textDocument.positionAt(e.location.start.offset),
-                end: textDocument.positionAt(e.location.end.offset),
+                end: textDocument.positionAt(e.location.start.offset),
             },
-            message: e.toString(),
+            message: e.message,
         });
     })
     connection.sendDiagnostics({ uri: textDocument.uri, diagnostics });
@@ -261,6 +257,7 @@ connection.onCompletionResolve((item: CompletionItem): CompletionItem => {
     item.detail = Hovers.get(item.data);
     return item;
 });
+
 
 connection.onHover(({ textDocument, position }) => {
     const doc = documents.get(textDocument.uri);

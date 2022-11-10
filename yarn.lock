@@ -4232,7 +4232,7 @@ __metadata:
   bin:
     schedule-script: ./cli/cli.js
     scs: ./cli/cli.js
-  checksum: 9d8fe2792943f325f5f9b8189663f4f946ab3ed5b103b997878dc58078dafb1a7a89c1955f5dda212b4c205b5d8b46fbd790ea637c58de73c4ce32d193b02ec3
+  checksum: faabada5f895950f17ac08928e61cfc275939b5743e4bcb96989b0142e184fbec51524ea072d2428a4e79494dafbb3b6d1b2abbb4cccc6f1afba886896097d40
   languageName: node
   linkType: hard
 

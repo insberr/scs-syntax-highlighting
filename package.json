@@ -71,11 +71,7 @@
             }
         ],
         "grammars": [
-            {
-                "language": "scs",
-                "scopeName": "source.scs",
-                "path": "./syntaxes/scs.tmLanguage.json"
-            }
+
         ]
     },
     "targets": {

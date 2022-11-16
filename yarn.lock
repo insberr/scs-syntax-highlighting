@@ -4221,9 +4221,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"schedule-script@github:insberr/schedule-script#9c0dc4973dc2f32d6119a8ecd03f1a12b91b1070":
+"schedule-script@github:insberr/schedule-script#2dbf40dbb4927bc5edea0199b9cc513b630ff0a3":
   version: 0.0.5
-  resolution: "schedule-script@https://github.com/insberr/schedule-script.git#commit=9c0dc4973dc2f32d6119a8ecd03f1a12b91b1070"
+  resolution: "schedule-script@https://github.com/insberr/schedule-script.git#commit=2dbf40dbb4927bc5edea0199b9cc513b630ff0a3"
   dependencies:
     "@ungap/structured-clone": ^1.0.1
     date-fns: ^2.29.3
@@ -4232,7 +4232,7 @@ __metadata:
   bin:
     schedule-script: ./cli/cli.js
     scs: ./cli/cli.js
-  checksum: d12876f2a8a0516f1a7016969072e1aabb1627dea7f588ee9adcf83cb3f7ffaa7accb3f25d507fbd80dba90360d39a7d251449106ab411a54b2d3d38960865c8
+  checksum: 4ed297563561fdd3a89f3d463e309e22578b7a90d0d79a54113605bdee8a914bec171fddb1d024947e29aea833d344b8a81cfb805aa50893010ae0d6998e85fb
   languageName: node
   linkType: hard
 
@@ -4253,7 +4253,7 @@ __metadata:
     eslint: ^8.26.0
     mocha: ^9.2.1
     parcel: ^2.7.0
-    schedule-script: "github:insberr/schedule-script#9c0dc4973dc2f32d6119a8ecd03f1a12b91b1070"
+    schedule-script: "github:insberr/schedule-script#2dbf40dbb4927bc5edea0199b9cc513b630ff0a3"
     typescript: ^4.8.4
     vsce: ^2.14.0
     vscode-languageclient: ^8.0.2
